@@ -46,8 +46,14 @@ export function Navbar() {
             ))}
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden md:block">
+          {/* CTA Buttons */}
+          <div className="hidden items-center gap-3 md:flex">
+            <Link
+              href="/mi-cuenta/mis-eventos"
+              className="inline-flex h-9 items-center justify-center rounded-lg border border-border/40 px-4 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+            >
+              Mis Eventos
+            </Link>
             <Link
               href="/demo"
               className="inline-flex h-9 items-center justify-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
@@ -92,8 +98,15 @@ export function Navbar() {
               </Link>
             ))}
             <Link
+              href="/mi-cuenta/mis-eventos"
+              className="mt-4 flex h-9 items-center justify-center rounded-lg border border-border/40 px-4 text-sm font-medium transition-colors hover:bg-accent"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Mis Eventos
+            </Link>
+            <Link
               href="/demo"
-              className="mt-4 flex h-9 items-center justify-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
+              className="mt-2 flex h-9 items-center justify-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
               onClick={() => setMobileMenuOpen(false)}
             >
               Ver Demo
