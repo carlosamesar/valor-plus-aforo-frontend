@@ -2,90 +2,86 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import {
-  LayoutDashboard,
-  Calendar,
-  Ticket,
-  Users,
-  QrCode,
-  BarChart3,
-  Settings,
-  LogOut,
-} from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const menuItems = [
-  { icon: LayoutDashboard, label: 'Dashboard', href: '/admin' },
-  { icon: Calendar, label: 'Eventos', href: '/admin/eventos' },
-  { icon: Ticket, label: 'Tickets', href: '/admin/tickets' },
-  { icon: Users, label: 'Asistentes', href: '/admin/asistentes' },
-  { icon: QrCode, label: 'Check-in', href: '/admin/checkin' },
-  { icon: BarChart3, label: 'Reportes', href: '/admin/reportes' },
-  { icon: Settings, label: 'Configuración', href: '/admin/configuracion' },
+  { icon: 'dashboard', label: 'Dashboard', href: '/admin' },
+  { icon: 'event', label: 'Eventos', href: '/admin/eventos' },
+  { icon: 'confirmation_number', label: 'Tickets', href: '/admin/tickets' },
+  { icon: 'group', label: 'Asistentes', href: '/admin/asistentes' },
+  { icon: 'qr_code_scanner', label: 'Check-in', href: '/admin/checkin' },
+  { icon: 'bar_chart', label: 'Reportes', href: '/admin/reportes' },
+  { icon: 'settings', label: 'Configuración', href: '/admin/configuracion' },
 ];
 
 export function AdminSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="fixed left-0 top-0 z-40 h-screen w-64 border-r border-border bg-card">
+    <aside className="fixed left-0 top-0 z-50 flex h-screen w-[260px] flex-col border-r bg-white">
       {/* Logo */}
-      <div className="flex h-16 items-center border-b border-border px-6">
-        <Link href="/admin" className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-            <span className="text-lg font-bold text-primary-foreground">A</span>
+      <div className="flex h-16 items-center justify-between border-b px-5">
+        <Link href="/admin" className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#0377a8]">
+            <span className="text-lg font-bold text-white">A</span>
           </div>
-          <div>
-            <p className="text-sm font-bold">Aforo Admin</p>
-            <p className="text-xs text-muted-foreground">Panel de control</p>
+          <div className="flex flex-col leading-tight">
+            <span className="text-base font-bold tracking-tight text-[#001233]">
+              Aforo
+            </span>
+            <span className="text-[9px] font-semibold tracking-wide text-[#64748b]">
+              GESTIÓN DE EVENTOS
+            </span>
           </div>
         </Link>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 space-y-1 p-4">
-        {menuItems.map((item) => {
-          const Icon = item.icon;
-          const isActive = pathname === item.href;
+      <nav className="flex-1 overflow-y-auto p-4">
+        <div className="space-y-1">
+          {menuItems.map((item) => {
+            const isActive = pathname === item.href;
 
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn(
-                'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
-                isActive
-                  ? 'bg-primary text-primary-foreground'
-                  : 'text-muted-foreground hover:bg-muted hover:text-foreground'
-              )}
-            >
-              <Icon className="h-5 w-5" />
-              {item.label}
-            </Link>
-          );
-        })}
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  'flex items-center gap-3 rounded-lg px-3 py-2.5 text-[13.5px] font-medium transition-all',
+                  isActive
+                    ? 'bg-[#e0f2fe] text-[#0377a8]'
+                    : 'text-[#64748b] hover:bg-[#f1f5f9] hover:text-[#001233]'
+                )}
+              >
+                <span className="material-symbols-outlined text-xl">
+                  {item.icon}
+                </span>
+                <span>{item.label}</span>
+              </Link>
+            );
+          })}
+        </div>
       </nav>
 
-      {/* User section */}
-      <div className="border-t border-border p-4">
+      {/* Footer */}
+      <div className="border-t p-4">
         <div className="mb-3 flex items-center gap-3 px-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10">
-            <span className="text-sm font-semibold text-primary">AD</span>
+          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#e0f2fe]">
+            <span className="text-sm font-semibold text-[#0377a8]">AD</span>
           </div>
           <div className="flex-1">
-            <p className="text-sm font-medium">Admin</p>
-            <p className="text-xs text-muted-foreground">admin@aforo.com</p>
+            <p className="text-sm font-semibold text-[#001233]">Admin</p>
+            <p className="text-xs text-[#64748b]">admin@aforo.com</p>
           </div>
         </div>
         <button
-          className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-[#64748b] transition-all hover:bg-[#f1f5f9] hover:text-[#001233]"
           onClick={() => {
-            // TODO: Implement logout
             alert('Logout functionality');
           }}
         >
-          <LogOut className="h-5 w-5" />
-          Cerrar sesión
+          <span className="material-symbols-outlined text-xl">logout</span>
+          <span>Cerrar sesión</span>
         </button>
       </div>
     </aside>

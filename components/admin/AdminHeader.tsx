@@ -1,31 +1,36 @@
 'use client';
 
-import { Bell, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
 export function AdminHeader() {
   return (
-    <header className="fixed left-64 right-0 top-0 z-30 flex h-16 items-center justify-between border-b border-border bg-background px-6">
+    <header className="fixed left-[260px] right-0 top-0 z-40 flex h-16 items-center justify-between border-b bg-white px-6">
       {/* Search */}
       <div className="flex items-center gap-4">
         <div className="relative w-96">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-lg text-[#64748b]">
+            search
+          </span>
           <Input
             type="search"
             placeholder="Buscar eventos, tickets, asistentes..."
-            className="pl-10"
+            className="border-[#e2e8f0] pl-10 text-sm"
           />
         </div>
       </div>
 
       {/* Actions */}
       <div className="flex items-center gap-4">
-        <Button variant="ghost" size="icon" className="relative">
-          <Bell className="h-5 w-5" />
+        <Button
+          variant="ghost"
+          size="icon"
+          className="relative text-[#64748b] hover:bg-[#f1f5f9] hover:text-[#001233]"
+        >
+          <span className="material-symbols-outlined">notifications</span>
           <span className="absolute right-2 top-2 flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-primary"></span>
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#0377a8] opacity-75"></span>
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-[#0377a8]"></span>
           </span>
         </Button>
       </div>

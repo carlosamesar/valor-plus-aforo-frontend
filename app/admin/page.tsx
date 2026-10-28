@@ -2,15 +2,6 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import {
-  Calendar,
-  Ticket,
-  DollarSign,
-  Users,
-  TrendingUp,
-  TrendingDown,
-  ArrowRight,
-} from 'lucide-react';
 import Link from 'next/link';
 
 // Mock data
@@ -20,7 +11,7 @@ const stats = [
     value: '24',
     change: '+12%',
     trend: 'up',
-    icon: Calendar,
+    icon: 'event',
     href: '/admin/eventos',
   },
   {
@@ -28,7 +19,7 @@ const stats = [
     value: '1,847',
     change: '+23%',
     trend: 'up',
-    icon: Ticket,
+    icon: 'confirmation_number',
     href: '/admin/tickets',
   },
   {
@@ -36,7 +27,7 @@ const stats = [
     value: '$124,500',
     change: '+18%',
     trend: 'up',
-    icon: DollarSign,
+    icon: 'payments',
     href: '/admin/reportes',
   },
   {
@@ -44,7 +35,7 @@ const stats = [
     value: '3,241',
     change: '-5%',
     trend: 'down',
-    icon: Users,
+    icon: 'group',
     href: '/admin/asistentes',
   },
 ];
@@ -108,61 +99,67 @@ export default function AdminDashboard() {
     <div className="space-y-6">
       {/* Page Header */}
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-        <p className="text-muted-foreground">
+        <h1 className="text-xl font-extrabold tracking-tight text-[#001233]">
+          Dashboard
+        </h1>
+        <p className="text-[13px] text-[#64748b]">
           Resumen general de la plataforma de eventos
         </p>
       </div>
 
       {/* Stats Grid */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {stats.map((stat) => {
-          const Icon = stat.icon;
-          const TrendIcon = stat.trend === 'up' ? TrendingUp : TrendingDown;
-
-          return (
-            <Link key={stat.title} href={stat.href}>
-              <Card className="transition-shadow hover:shadow-lg">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    {stat.title}
-                  </CardTitle>
-                  <Icon className="h-4 w-4 text-muted-foreground" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{stat.value}</div>
-                  <div className="flex items-center gap-1 text-xs">
-                    <TrendIcon
-                      className={`h-3 w-3 ${
-                        stat.trend === 'up' ? 'text-green-500' : 'text-red-500'
-                      }`}
-                    />
-                    <span
-                      className={
-                        stat.trend === 'up' ? 'text-green-500' : 'text-red-500'
-                      }
-                    >
-                      {stat.change}
-                    </span>
-                    <span className="text-muted-foreground">vs mes anterior</span>
-                  </div>
-                </CardContent>
-              </Card>
-            </Link>
-          );
-        })}
+        {stats.map((stat) => (
+          <Link key={stat.title} href={stat.href}>
+            <Card className="border-[#e2e8f0] bg-white shadow-[0_2px_10px_rgba(0,0,0,0.03)] transition-shadow hover:shadow-[0_6px_20px_rgba(0,0,0,0.06)]">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-[13px] font-medium text-[#64748b]">
+                  {stat.title}
+                </CardTitle>
+                <span className="material-symbols-outlined text-xl text-[#94a3b8]">
+                  {stat.icon}
+                </span>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-[#001233]">
+                  {stat.value}
+                </div>
+                <div className="mt-1 flex items-center gap-1 text-xs">
+                  <span
+                    className={
+                      stat.trend === 'up'
+                        ? 'text-[#15803d]'
+                        : 'text-[#dc2626]'
+                    }
+                  >
+                    {stat.change}
+                  </span>
+                  <span className="text-[#64748b]">vs mes anterior</span>
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
+        ))}
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
         {/* Recent Events */}
-        <Card>
+        <Card className="border-[#e2e8f0] bg-white">
           <CardHeader>
             <div className="flex items-center justify-between">
-              <CardTitle>Eventos Recientes</CardTitle>
+              <CardTitle className="text-base font-bold text-[#001233]">
+                Eventos Recientes
+              </CardTitle>
               <Link href="/admin/eventos">
-                <Button variant="ghost" size="sm">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-[#0377a8] hover:bg-[#e0f2fe]"
+                >
                   Ver todos
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                  <span className="material-symbols-outlined ml-2 text-base">
+                    arrow_forward
+                  </span>
                 </Button>
               </Link>
             </div>
@@ -172,15 +169,15 @@ export default function AdminDashboard() {
               {recentEvents.map((event) => (
                 <div
                   key={event.id}
-                  className="flex items-center justify-between rounded-lg border border-border p-4"
+                  className="flex items-center justify-between rounded-lg border border-[#e2e8f0] p-4"
                 >
                   <div className="space-y-1">
-                    <p className="font-medium">{event.name}</p>
-                    <p className="text-sm text-muted-foreground">{event.date}</p>
+                    <p className="font-semibold text-[#001233]">{event.name}</p>
+                    <p className="text-sm text-[#64748b]">{event.date}</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-semibold">{event.revenue}</p>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="font-bold text-[#001233]">{event.revenue}</p>
+                    <p className="text-sm text-[#64748b]">
                       {event.tickets} tickets
                     </p>
                   </div>
@@ -191,14 +188,22 @@ export default function AdminDashboard() {
         </Card>
 
         {/* Recent Orders */}
-        <Card>
+        <Card className="border-[#e2e8f0] bg-white">
           <CardHeader>
             <div className="flex items-center justify-between">
-              <CardTitle>Órdenes Recientes</CardTitle>
+              <CardTitle className="text-base font-bold text-[#001233]">
+                Órdenes Recientes
+              </CardTitle>
               <Link href="/admin/tickets">
-                <Button variant="ghost" size="sm">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-[#0377a8] hover:bg-[#e0f2fe]"
+                >
                   Ver todas
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                  <span className="material-symbols-outlined ml-2 text-base">
+                    arrow_forward
+                  </span>
                 </Button>
               </Link>
             </div>
@@ -208,20 +213,20 @@ export default function AdminDashboard() {
               {recentOrders.map((order) => (
                 <div
                   key={order.id}
-                  className="flex items-center justify-between rounded-lg border border-border p-4"
+                  className="flex items-center justify-between rounded-lg border border-[#e2e8f0] p-4"
                 >
                   <div className="space-y-1">
-                    <p className="font-medium">{order.buyer}</p>
-                    <p className="text-sm text-muted-foreground">{order.event}</p>
-                    <p className="text-xs text-muted-foreground">{order.date}</p>
+                    <p className="font-semibold text-[#001233]">{order.buyer}</p>
+                    <p className="text-sm text-[#64748b]">{order.event}</p>
+                    <p className="text-xs text-[#94a3b8]">{order.date}</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-semibold">{order.amount}</p>
+                    <p className="font-bold text-[#001233]">{order.amount}</p>
                     <span
-                      className={`inline-block rounded-full px-2 py-1 text-xs ${
+                      className={`inline-block rounded-full px-2 py-1 text-xs font-medium ${
                         order.status === 'completed'
-                          ? 'bg-green-500/10 text-green-500'
-                          : 'bg-yellow-500/10 text-yellow-500'
+                          ? 'bg-[#dcfce7] text-[#15803d]'
+                          : 'bg-[#fef3c7] text-[#b45309]'
                       }`}
                     >
                       {order.status === 'completed' ? 'Completado' : 'Pendiente'}
@@ -235,27 +240,44 @@ export default function AdminDashboard() {
       </div>
 
       {/* Quick Actions */}
-      <Card>
+      <Card className="border-[#e2e8f0] bg-white">
         <CardHeader>
-          <CardTitle>Acciones Rápidas</CardTitle>
+          <CardTitle className="text-base font-bold text-[#001233]">
+            Acciones Rápidas
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid gap-4 md:grid-cols-3">
             <Link href="/admin/eventos/nuevo">
-              <Button className="w-full" size="lg">
-                <Calendar className="mr-2 h-5 w-5" />
+              <Button
+                className="w-full bg-[#0377a8] hover:bg-[#0369a1]"
+                size="lg"
+              >
+                <span className="material-symbols-outlined mr-2">event</span>
                 Crear Evento
               </Button>
             </Link>
             <Link href="/admin/checkin">
-              <Button className="w-full" variant="outline" size="lg">
-                <Ticket className="mr-2 h-5 w-5" />
+              <Button
+                className="w-full border-[#e2e8f0] text-[#001233] hover:bg-[#f1f5f9]"
+                variant="outline"
+                size="lg"
+              >
+                <span className="material-symbols-outlined mr-2">
+                  qr_code_scanner
+                </span>
                 Iniciar Check-in
               </Button>
             </Link>
             <Link href="/admin/reportes">
-              <Button className="w-full" variant="outline" size="lg">
-                <TrendingUp className="mr-2 h-5 w-5" />
+              <Button
+                className="w-full border-[#e2e8f0] text-[#001233] hover:bg-[#f1f5f9]"
+                variant="outline"
+                size="lg"
+              >
+                <span className="material-symbols-outlined mr-2">
+                  bar_chart
+                </span>
                 Ver Reportes
               </Button>
             </Link>
